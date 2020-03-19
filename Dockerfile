@@ -5,8 +5,8 @@ FROM ruby:2.7 AS drkiq-development
 MAINTAINER SemaphoreCI
 
 # Docker build arguments
-ARG USER_ID
-ARG GROUP_ID
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 # Create a user with the same ID and GID
 RUN addgroup --gid $GROUP_ID user
@@ -17,7 +17,7 @@ ENV INSTALL_PATH /opt/app
 RUN mkdir -p $INSTALL_PATH
 
 # Install Nodejs
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg -o /root/yarn-pubkey.gpg && apt-key add /root/yarn-pubkey.gpg
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg -o yarn-pubkey.gpg && apt-key add yarn-pubkey.gpg
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y --no-install-recommends nodejs yarn
 
